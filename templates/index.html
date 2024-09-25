@@ -1,0 +1,48 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dice Rolling Simulator</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+        }
+        #dice {
+            width: 150px;
+            height: 150px;
+            margin: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <img id="dice" src="/static/images/dice1.jpg" alt="Dice">
+        <button onclick="rollDice()">Roll Dice</button>
+    </div>
+
+    <script>
+        function rollDice() {
+            fetch('/roll-dice')
+                .then(response => response.json())
+                .then(data => {
+                    const diceFace = data.result;
+                    const diceElement = document.getElementById('dice');
+                    diceElement.src = `/static/images/dice${diceFace}.jpg`;
+                });
+        }
+    </script>
+</body>
+</html>
+
